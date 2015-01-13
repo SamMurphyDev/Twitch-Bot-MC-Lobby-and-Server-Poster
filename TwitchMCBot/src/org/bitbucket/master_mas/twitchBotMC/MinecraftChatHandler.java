@@ -10,8 +10,6 @@ public class MinecraftChatHandler {
 	
 	public MinecraftChatHandler() {
 		MinecraftChatHandler.instance = this;
-		
-		messageQueue.add("MC Lobby and Status Poster has entered the chat");
 	}
 
 	public static MinecraftChatHandler getInstance() {
@@ -27,8 +25,7 @@ public class MinecraftChatHandler {
 			String ip = bits[0];
 			ip.trim();
 			MinecraftCurrentInfo.serverHost = ip;
-			messageQueue.add("I'm Playing on " + ip);
-			messageQueue.add("Come and join me!!!");
+			messageQueue.add("I'm Playing on " + ip + "  Come and Join me!!!");
 			System.out.println("Added " + ip + " to post queue");
 			return;
 		}
@@ -38,10 +35,30 @@ public class MinecraftChatHandler {
 				if(message.contains("Portal>")) {
 					String bit[] = message.split("You have been sent to");
 					MinecraftCurrentInfo.currentServerRoomUUID = bit[1].trim();
-					System.out.println("Test Lock Up");
 					messageQueue.add("I've just entered the game " + bit[1].trim() + " on " + MinecraftCurrentInfo.serverHost);
-					System.out.println("Lock Up");
 					System.out.println("Added " + bit[1] + " to post queue");
+				}
+				return;
+			}
+			
+			if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("hypixel")) {
+				if(message.contains("Sending you to")) {
+					String text[] = message.split("Sending you to");
+					text[1].replace("!", "");
+					MinecraftCurrentInfo.currentServerRoomUUID = text[1];
+					messageQueue.add("I've just entered the game " + text[1] + " on " + MinecraftCurrentInfo.serverHost);
+					System.out.println("Added " + text[1] + " to post queue");
+				}
+				return;
+			}
+			
+			if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("playmindcrack")) {
+				if(message.contains("Warping to")) {
+					String bits[] = message.split("Warping to");
+					bits[1].replace(".", "");
+					MinecraftCurrentInfo.currentServerRoomUUID = bits[1].trim();
+					messageQueue.add("I've just entered the game " + bits[1].trim() + " on " + MinecraftCurrentInfo.serverHost);
+					System.out.println("Added " + bits[1] + " to post queue");
 				}
 				return;
 			}

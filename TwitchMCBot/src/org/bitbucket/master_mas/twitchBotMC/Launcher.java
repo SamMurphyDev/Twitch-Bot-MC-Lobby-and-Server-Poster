@@ -47,7 +47,7 @@ public class Launcher extends JFrame {
 		
 		this.setSize(new Dimension(400, 300));
 		this.setLocationRelativeTo(null);
-		this.setTitle("Twitch MC Bot - 1.0.0");
+		this.setTitle("Twitch MC Bot - 1.0.1");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setResizable(false);
 		this.setIconImage(null);
