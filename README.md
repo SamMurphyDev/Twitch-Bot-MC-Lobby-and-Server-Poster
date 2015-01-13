@@ -1,6 +1,7 @@
 This bot is a Twitch bot that you run from your computer that notify's Twitch of what Server and Lobby or Game your in.
 
 The current list of servers which the bot is compatible with are:
+
 * us.mineplex.com
 * eu.mineplex.com 
 
@@ -10,7 +11,7 @@ Version - 1.0.0
 
 To run the program you double click it. Doesn't need to be installed or anything.
 
-You will need the following for the program
+You will need the following for the program:
 * The Twitch Username that the bot will be posting under. This could be a separate account or your main account
 * The OAuth key for that account. It's like a password but different. This can be obtained from [Twitch Apps](http://twitchapps.com/tmi/)
 * The Twitch username that the bot will be posting under. So if your the channel your live streaming on is http://twitch.tv/master_mas then the Twitch username is master_mas
