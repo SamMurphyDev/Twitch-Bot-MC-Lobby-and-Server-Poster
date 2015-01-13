@@ -2,8 +2,8 @@ This bot is a Twitch bot that you run from your computer that notify's Twitch of
 
 The current list of servers which the bot is compatible with are:
 
-* us.mineplex.com
-* eu.mineplex.com 
+* us.mineplex.com (Server / Lobby / Minigame)
+* eu.mineplex.com (Server / Lobby / Minigame)
 
 Version - 1.0.0
 
