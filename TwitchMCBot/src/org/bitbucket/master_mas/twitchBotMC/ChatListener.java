@@ -24,6 +24,8 @@ public class ChatListener extends ListenerAdapter<PircBotX> {
 			return;
 		}
 		
+		
+		
 //		if(event.getMessage().startsWith("!setserver")){
 //			String message = event.getMessage();
 //				MinecraftCurrentInfo.serverHost = message.substring(10);
