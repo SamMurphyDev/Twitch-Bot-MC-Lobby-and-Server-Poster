@@ -7,6 +7,8 @@ The current list of servers which the bot is compatible with are:
 
 Version - 1.0.0
 
+[Download Here](https://bitbucket.org/master_mas/twitch-bot-mc-lobby-and-server-poster/downloads)
+
 ### How do I get set up? ###
 
 To run the program you double click it. Doesn't need to be installed or anything.
