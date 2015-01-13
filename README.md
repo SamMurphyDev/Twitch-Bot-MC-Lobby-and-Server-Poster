@@ -2,16 +2,15 @@ This bot is a Twitch bot that you run from your computer that notify's Twitch of
 
 The current list of servers which the bot is compatible with are:
 
-* Server - Can post Server IP
 * Lobby - Can Post which Lobby you are in or section of lobby (E.g. Lobby or Island in Lobby)
 * Lobby[ID] - Can Post which specific Lobby you are in (E.g Lobby-5)
 * Mini-Game[ID] - Can post which specific mini-game you have joined (E.g. SG-5)
 * Mini-Game[Name] - Can post the name of the mini-game you have joined (E.g. Survival Games)
 
-1. us.mineplex.com (Server / Lobby / Mini-Game[ID])
-2. eu.mineplex.com (Server / Lobby / Mini-Game[ID])
-3. mc.hypixel.net (Server / Mini-Game[ID])
-4. us.playmindcrack.com (Server / Lobby / Mini-Game[Name])
+1. us.mineplex.com (Lobby / Mini-Game[ID])
+2. eu.mineplex.com (Lobby / Mini-Game[ID])
+3. mc.hypixel.net (Mini-Game[ID])
+4. us.playmindcrack.com (Lobby / Mini-Game[Name])
 
 Version - 1.0.1
 
