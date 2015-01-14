@@ -1,6 +1,8 @@
 This bot is a Twitch bot that you run from your computer that notify's Twitch of what Server and Lobby or Game your in.
 
+
 The current list of servers which the bot is compatible with are:
+
 
 1. us.mineplex.com (Lobby / Mini-Game[ID])
 2. eu.mineplex.com (Lobby / Mini-Game[ID])
