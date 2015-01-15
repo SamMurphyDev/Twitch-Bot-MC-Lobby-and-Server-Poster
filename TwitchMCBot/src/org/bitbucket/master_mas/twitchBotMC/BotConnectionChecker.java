@@ -36,21 +36,21 @@ public class BotConnectionChecker implements Runnable {
 				EventQueue.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						launcher.changeStatusLabel("Bot awaiting to initialise", "red");
+						launcher.changeConnectionStatusLabel("Bot awaiting to initialise", "blue");
 					}
 				});
 			else if(launcher.getBot().isConnected())
 				EventQueue.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						launcher.changeStatusLabel("Bot Connected and Running", "green");
+						launcher.changeConnectionStatusLabel("Bot Connected and Running", "green");
 					}
 				});
 			else if(!launcher.getBot().isConnected())
 				EventQueue.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						launcher.changeStatusLabel("Bot not Connected", "red");
+						launcher.changeConnectionStatusLabel("Bot not Connected", "red");
 					}
 				});
 			

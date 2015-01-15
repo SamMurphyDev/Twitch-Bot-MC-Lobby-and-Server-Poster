@@ -38,7 +38,6 @@ public class CommandMCBotDisconnect extends Command {
 				return;
 			if(usernameOfBot.equalsIgnoreCase(launcher.getBot().getConfiguration().getName())) {
 				launcher.getBot().sendIRC().quitServer();
-				launcher.stopCheckerThread();
 				EventQueue.invokeLater(new Runnable() {
 					@Override
 					public void run() {

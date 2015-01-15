@@ -30,8 +30,7 @@ public class McLegends extends MinecraftServerHandler {
 			String bits[] = message.split("Attempting to connect you to");
 			bits[1] = bits[1].replace(".", "");
 			MinecraftCurrentInfo.currentServerRoomUUID = bits[1].trim();
-			messageQueue.add("I've just entered the game " + bits[1].trim() + " on " + MinecraftCurrentInfo.serverHost);
+			messageQueue.add("I've just entered the " + bits[1].trim() + " on " + MinecraftCurrentInfo.serverHost);
 		}
-		return;
 	}
 }

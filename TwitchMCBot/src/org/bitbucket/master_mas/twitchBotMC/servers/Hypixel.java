@@ -32,6 +32,5 @@ public class Hypixel extends MinecraftServerHandler {
 			MinecraftCurrentInfo.currentServerRoomUUID = text[1];
 			messageQueue(text[1], false);
 		}
-		return;
 	}
 }

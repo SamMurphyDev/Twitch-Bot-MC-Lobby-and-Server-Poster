@@ -36,7 +36,6 @@ public class MinecraftPoller {
 	public MinecraftPoller(Launcher launcher) {
 		this.launcher = launcher;
 		if(!log.exists()) {
-			launcher.stopCheckerThread();
 			launcher.changeStatusLabel("No Minecraft Log File Detected", "red");
 			return;
 		}

@@ -31,7 +31,6 @@ public class CommandMCBotNot extends Command {
 		super(command, args, launcher, event);
 		if(!event.getUser().getLogin().equalsIgnoreCase(launcher.getBot().getConfiguration().getName())) {
 			launcher.getBot().sendIRC().quitServer();
-			launcher.stopCheckerThread();
 			EventQueue.invokeLater(new Runnable() {
 				@Override
 				public void run() {

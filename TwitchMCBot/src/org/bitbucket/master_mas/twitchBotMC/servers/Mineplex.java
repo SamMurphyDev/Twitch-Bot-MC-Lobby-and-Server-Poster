@@ -32,6 +32,5 @@ public class Mineplex extends MinecraftServerHandler {
 			MinecraftCurrentInfo.currentServerRoomUUID = bit[1].trim();
 			messageQueue.add("I've just entered the game " + bit[1].trim() + " on " + MinecraftCurrentInfo.serverHost);
 		}
-		return;
 	}
 }

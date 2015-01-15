@@ -32,6 +32,5 @@ public class Mindcrack extends MinecraftServerHandler {
 			MinecraftCurrentInfo.currentServerRoomUUID = bits[1].trim();
 			messageQueue.add("I've just entered the area " + bits[1].trim() + " on " + MinecraftCurrentInfo.serverHost);
 		}
-		return;
 	}
 }

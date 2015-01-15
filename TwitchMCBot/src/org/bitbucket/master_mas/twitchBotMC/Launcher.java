@@ -19,19 +19,26 @@
 
 package org.bitbucket.master_mas.twitchBotMC;
 
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -49,8 +56,11 @@ import org.pircbotx.PircBotX;
 public class Launcher extends JFrame {
 
 	private static final long serialVersionUID = -6830326952068691403L;
+	private static Dimension programRes = new Dimension(400, 330);
 	private JLabel connectionStatus;
+	private JLabel otherStatus;
 	private PircBotX bot;
+	private Timer timer;
 	
 	private Thread botThread;
 	private Thread checkerThread;
@@ -63,10 +73,11 @@ public class Launcher extends JFrame {
 	
 	public Launcher() {
 		this.instance = this;
+		timer = new Timer();
 		
-		this.setSize(new Dimension(400, 300));
+		this.setSize(programRes);
 		this.setLocationRelativeTo(null);
-		this.setTitle("Twitch MC Bot - 1.0.2");
+		this.setTitle("Twitch MC Bot - 1.0.3");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setResizable(false);
 		this.setIconImage(null);
@@ -93,9 +104,9 @@ public class Launcher extends JFrame {
 	}
 
 	private JPanel buildInterface(Map<String, String> settings) {
-		JPanel container = new JPanel();
+		final JPanel container = new JPanel();
 		container.setBorder(new EmptyBorder(10, 10, 10, 10));
-		container.setLayout(new GridLayout(11, 2, 5, 5));
+		container.setLayout(new GridLayout(12, 2, 5, 5));
 		
 		JLabel userNameLabel = new JLabel("Username of bot");
 		container.add(userNameLabel);
@@ -124,7 +135,7 @@ public class Launcher extends JFrame {
 			channel.setText(settings.get("channel"));
 		container.add(channel);
 		
-		JLabel saveSettingsLabel = new JLabel("Save Configuration");
+		final JLabel saveSettingsLabel = new JLabel("Save Configuration");
 		container.add(saveSettingsLabel);
 		
 		final JCheckBox saveSettings = new JCheckBox();
@@ -136,7 +147,6 @@ public class Launcher extends JFrame {
 		confirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				((JButton)e.getSource()).setVisible(false);
 				MinecraftCurrentInfo.castersChannel = username.getText();
 				botThread = new Thread(new BotHandler(username.getText(), new String(oauthKey.getPassword()), channel.getText(), saveSettings.isSelected(), instance), "IRC Connection");
 				botThread.start();
@@ -144,15 +154,46 @@ public class Launcher extends JFrame {
 				checkerThread.start();
 				new MinecraftPoller(instance);
 				new Thread(new BotMessagePoster(instance)).start();
+				
+				container.remove((JButton)e.getSource());
+				container.remove(saveSettings);
+				container.remove(saveSettingsLabel);
+				username.setEditable(false);
+				oauthKey.setEditable(false);
+				channel.setEditable(false);
+				programRes.height = 300;
+				instance.setSize(programRes);
+				
+				container.setLayout(new GridLayout(9, 2, 5, 5));
 			}
 		});
 		container.add(confirm);
 		
 		connectionStatus = new JLabel("", SwingConstants.CENTER);
-		changeStatusLabel("Bot not Started", "gray");
+		changeConnectionStatusLabel("Bot not Started", "gray");
 		container.add(connectionStatus);
 		
-		JLabel me = new JLabel("<html><font color='#bdbdbd'>Developed by Sam Murphy Independent Software Development</font></html>");
+		otherStatus = new JLabel("", SwingConstants.CENTER);
+		changeStatusLabel("Nothing to Report", "gray");
+		container.add(otherStatus);
+		
+		JLabel me = new JLabel("<html><font color='#bdbdbd'>Developed by Sam Murphy Independent Software Development</font></html>", SwingConstants.CENTER);
+		me.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				if(Desktop.isDesktopSupported())
+				{
+					try {
+						Desktop.getDesktop().browse(new URI("http://www.sammurphysoftware.com"));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		container.add(me);
 		
 		return container;
@@ -180,7 +221,23 @@ public class Launcher extends JFrame {
 		return data;
 	}
 	
+	private TimerTask currentStatusTimer = null;
 	public void changeStatusLabel(String status, String color) {
+		otherStatus.setText("<html><font color='" + color + "'>" + status + "</font></html>");
+		
+		if(currentStatusTimer != null)
+			currentStatusTimer.cancel();
+		
+		timer.schedule(currentStatusTimer = new TimerTask() {
+			@Override
+			public void run() {
+				instance.changeStatusLabel("Nothing to Report", "gray");
+				currentStatusTimer = null;
+			}
+		}, 1000 * 30);
+	}
+	
+	public void changeConnectionStatusLabel(String status, String color) {
 		connectionStatus.setText("<html><font color='" + color + "'>" + status + "</font></html>");
 	}
 
@@ -192,12 +249,11 @@ public class Launcher extends JFrame {
 		return bot;
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void stopCheckerThread() {
-		checkerThread.stop();
-	}
-	
 	public void startCheckerThread() {
 		checkerThread.start();
+	}
+	
+	public Timer getTimer() {
+		return timer;
 	}
 }

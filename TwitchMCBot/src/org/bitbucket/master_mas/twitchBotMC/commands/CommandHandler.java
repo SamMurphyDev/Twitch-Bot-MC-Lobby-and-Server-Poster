@@ -19,6 +19,12 @@
 
 package org.bitbucket.master_mas.twitchBotMC.commands;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimerTask;
+
 import org.bitbucket.master_mas.twitchBotMC.Launcher;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -37,14 +43,47 @@ public class CommandHandler {
 		MCBOTMUTE;
 	}
 	
+	private final List<CommandsList> commandsThatHaveBeenRun = new ArrayList<CommandsList>();
+	private final Map<CommandsList, Integer> spamCounter = new HashMap<CommandsList, Integer>();
+	
 	public CommandHandler(Launcher launcher) {
 		this.launcher = launcher;
+		
+		for(CommandsList value : CommandsList.values())
+			spamCounter.put(value, 0);
 	}
 	
 	public void handle(String command, String[] args, MessageEvent<PircBotX> event) {
-		CommandsList commandV = CommandsList.valueOf(command.replace("!", "").split(" ")[0].toUpperCase());
+		final CommandsList commandV;
+		try {
+			commandV = CommandsList.valueOf(command.replace("!", "").split(" ")[0].toUpperCase());
+		} catch (Exception e) {
+			return;
+		}
+		
 		if(commandV == null)
 			return;
+		
+		if(commandsThatHaveBeenRun.contains(commandV)) {
+			if(spamCounter.containsKey(commandV)) {
+				spamCounter.put(commandV, spamCounter.get(commandV) + 1);
+				
+				if(spamCounter.get(commandV) > 2)
+					launcher.changeStatusLabel("People are spamming command: " + commandV, "red");
+			}
+			
+			return;
+		}
+			
+		
+		commandsThatHaveBeenRun.add(commandV);
+		launcher.getTimer().schedule(new TimerTask() {
+			@Override
+			public void run() {
+				commandsThatHaveBeenRun.remove(commandV);
+				spamCounter.put(commandV, 0);
+			}
+		}, 5000);
 		
 		switch(commandV) {
 			case LOBBY:

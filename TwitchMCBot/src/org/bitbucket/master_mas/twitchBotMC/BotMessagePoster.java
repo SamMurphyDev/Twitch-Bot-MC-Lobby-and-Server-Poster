@@ -19,12 +19,15 @@
 
 package org.bitbucket.master_mas.twitchBotMC;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 public class BotMessagePoster implements Runnable {
 	
 	private Launcher launcher;
 	private String channel = null;
 	
 	public static boolean mute = false;
+	public static ConcurrentLinkedQueue<String> bypassMute = new ConcurrentLinkedQueue<String>();
 
 	public BotMessagePoster(Launcher launcher) {
 		this.launcher = launcher;
@@ -35,15 +38,19 @@ public class BotMessagePoster implements Runnable {
 		String line;
 		
 		while(true) {
-			if(channel == null) {
+			if(channel == null)
 				try {
 					for(String channel : launcher.getBot().getConfiguration().getAutoJoinChannels().keySet())
 						this.channel = channel;
 				} catch (Exception e)  { }
-			} else
+			else {
 				if((line = MinecraftChatHandler.getInstance().messageQueue.poll()) != null)
 					if(!mute)
 						launcher.getBot().sendIRC().message(channel, line);
+			
+				if((line = bypassMute.poll()) != null)
+					launcher.getBot().sendIRC().message(channel, line);
+			}
 			
 			try {
 				Thread.sleep(1000);

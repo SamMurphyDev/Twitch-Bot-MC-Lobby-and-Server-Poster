@@ -19,8 +19,8 @@
 
 package org.bitbucket.master_mas.twitchBotMC.commands;
 
+import org.bitbucket.master_mas.twitchBotMC.BotMessagePoster;
 import org.bitbucket.master_mas.twitchBotMC.Launcher;
-import org.bitbucket.master_mas.twitchBotMC.MinecraftChatHandler;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.events.MessageEvent;
 
@@ -28,6 +28,6 @@ public class CommandMCBotAvailable extends Command {
 
 	public CommandMCBotAvailable(String command, String[] args, Launcher launcher, MessageEvent<PircBotX> event) {
 		super(command, args, launcher, event);
-		MinecraftChatHandler.getInstance().messageQueue.add("!mcbotnot");
+		BotMessagePoster.bypassMute.add("!mcbotnot");
 	}
 }

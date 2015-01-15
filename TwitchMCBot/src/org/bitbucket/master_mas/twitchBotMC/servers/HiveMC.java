@@ -31,6 +31,5 @@ public class HiveMC extends MinecraftServerHandler {
 			MinecraftCurrentInfo.currentServerRoomUUID = bits[1].trim();
 			messageQueue(bits[1].trim(), false);
 		}
-		return;
 	}
 }
