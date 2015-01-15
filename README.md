@@ -16,6 +16,7 @@ This bot will post out any server you join. The list below tells you what server
 
 Version - 1.0.2
 
+Currently only works with a Windows. If demand is high enough I will push to other platforms
 [Download Here](https://bitbucket.org/master_mas/twitch-bot-mc-lobby-and-server-poster/downloads)
 
 [License Agreement](https://bitbucket.org/master_mas/twitch-bot-mc-lobby-and-server-poster/src/4365330098ff0a859ee0544f315340ba381f2b96/license.txt)
