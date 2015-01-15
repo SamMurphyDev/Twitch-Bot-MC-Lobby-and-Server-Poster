@@ -19,59 +19,22 @@
 
 package org.bitbucket.master_mas.twitchBotMC;
 
-import java.awt.EventQueue;
-
+import org.bitbucket.master_mas.twitchBotMC.commands.CommandHandler;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
 public class ChatListener extends ListenerAdapter<PircBotX> {
-	private Launcher launcher;
+	private CommandHandler commandHandler;
 
 	public ChatListener(Launcher launcher) {
-		this.launcher = launcher;
+		this.commandHandler = new CommandHandler(launcher);
 	}
 	
 	@Override
 	public void onMessage(MessageEvent<PircBotX> event) throws Exception {
-		if(event.getMessage().startsWith("!server")) {
-			MinecraftChatHandler.getInstance().messageQueue.add("The Server that I'm currently playing on is " + MinecraftCurrentInfo.serverHost);
-			return;
-		}
-		
-		if(event.getMessage().startsWith("!lobby")) {
-			MinecraftChatHandler.getInstance().messageQueue.add("The Lobby that I'm currently at is " + MinecraftCurrentInfo.currentServerRoomUUID);
-			return;
-		}
-		
-		if(event.getMessage().startsWith("!mcbottestavailable")) {
-			MinecraftChatHandler.getInstance().messageQueue.add("!mcbottestnot");
-			return;
-		}
-		
-		if(event.getMessage().startsWith("!mcbottestnot")) {
-			if(!event.getUser().getLogin().equalsIgnoreCase(launcher.getBot().getConfiguration().getName())) {
-				launcher.getBot().sendIRC().quitServer();
-				launcher.stopCheckerThread();
-				EventQueue.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						launcher.changeStatusLabel("A another bot instance already exists in chat", "red");
-					}
-				});
-			}
-			return;
-		}
-		
-		if(event.getMessage().startsWith("!mcbotgetuser")) {
-			MinecraftChatHandler.getInstance().messageQueue.add("MC BOT POSTING. Currently Using Username - " + launcher.getBot().getConfiguration().getName());
-			return;
-		}
-		
-//		if(event.getMessage().startsWith("!setserver")){
-//			String message = event.getMessage();
-//				MinecraftCurrentInfo.serverHost = message.substring(10);
-//		}
+		if(event.getMessage().startsWith("!"))
+			commandHandler.handle(event.getMessage().substring(1), event.getMessage().split(" "), event);
 		
 		super.onMessage(event);
 	}

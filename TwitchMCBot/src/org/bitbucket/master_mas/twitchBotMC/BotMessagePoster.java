@@ -23,6 +23,8 @@ public class BotMessagePoster implements Runnable {
 	
 	private Launcher launcher;
 	private String channel = null;
+	
+	public static boolean mute = false;
 
 	public BotMessagePoster(Launcher launcher) {
 		this.launcher = launcher;
@@ -35,14 +37,13 @@ public class BotMessagePoster implements Runnable {
 		while(true) {
 			if(channel == null) {
 				try {
-					for(String channel : launcher.getBot().getConfiguration().getAutoJoinChannels().keySet()) {
+					for(String channel : launcher.getBot().getConfiguration().getAutoJoinChannels().keySet())
 						this.channel = channel;
-					}
 				} catch (Exception e)  { }
-			} else {
+			} else
 				if((line = MinecraftChatHandler.getInstance().messageQueue.poll()) != null)
-					launcher.getBot().sendIRC().message(channel, line);
-			}
+					if(!mute)
+						launcher.getBot().sendIRC().message(channel, line);
 			
 			try {
 				Thread.sleep(1000);

@@ -21,6 +21,12 @@ package org.bitbucket.master_mas.twitchBotMC;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.bitbucket.master_mas.twitchBotMC.servers.HiveMC;
+import org.bitbucket.master_mas.twitchBotMC.servers.Hypixel;
+import org.bitbucket.master_mas.twitchBotMC.servers.McLegends;
+import org.bitbucket.master_mas.twitchBotMC.servers.Mindcrack;
+import org.bitbucket.master_mas.twitchBotMC.servers.Mineplex;
+
 public class MinecraftChatHandler {
 
 	private static MinecraftChatHandler instance;
@@ -29,7 +35,7 @@ public class MinecraftChatHandler {
 	
 	public MinecraftChatHandler() {
 		MinecraftChatHandler.instance = this;
-		messageQueue.add("!mcbottestavailable");
+		messageQueue.add("!mcbotavailable");
 	}
 
 	public static MinecraftChatHandler getInstance() {
@@ -49,62 +55,17 @@ public class MinecraftChatHandler {
 			return;
 		}
 		
-		//us.mineplex.com
-		//eu.mineplex.com
 		if(MinecraftCurrentInfo.serverHost != null) {
-			if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("mineplex")) {
-				if(message.contains("Portal>")) {
-					String bit[] = message.split("You have been sent to");
-					MinecraftCurrentInfo.currentServerRoomUUID = bit[1].trim();
-					messageQueue.add("I've just entered the game " + bit[1].trim() + " on " + MinecraftCurrentInfo.serverHost);
-				}
-				return;
-			}
-			
-			//mc.hypixel.net
-			if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("hypixel")) {
-				if(message.contains("Sending you to")) {
-					String text[] = message.split("Sending you to");
-					text[1].replace("!", "");
-					MinecraftCurrentInfo.currentServerRoomUUID = text[1];
-					messageQueue.add("I've just entered the game " + text[1] + " on " + MinecraftCurrentInfo.serverHost);
-				}
-				return;
-			}
-			
-			//us.playmindcrack.com
-			if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("playmindcrack")) {
-				if(message.contains("Warping to")) {
-					String bits[] = message.split("Warping to");
-					bits[1].replace(".", "");
-					MinecraftCurrentInfo.currentServerRoomUUID = bits[1].trim();
-					messageQueue.add("I've just entered the game " + bits[1].trim() + " on " + MinecraftCurrentInfo.serverHost);
-				}
-				return;
-			}
-			
-			//play.hivemc.com
-			if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("hivemc")) {
-				if(message.contains("Welcome to")) {
-					String bits[] = message.split("\\?");
-					MinecraftCurrentInfo.currentServerRoomUUID = bits[1].trim();
-					messageQueue.add("I've just entered the game " + bits[1].trim() + " on " + MinecraftCurrentInfo.serverHost);
-				}
-				return;
-			}
-			
-			//play.mc-legends.com
-			if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("mc-legends")) {
-				if(message.contains("MCLegendsNetwork> Attempting to connect you to")) {
-					String bits[] = message.split("Attempting to connect you to");
-					bits[1] = bits[1].replace(".", "");
-					MinecraftCurrentInfo.currentServerRoomUUID = bits[1].trim();
-					messageQueue.add("I've just entered the game " + bits[1].trim() + " on " + MinecraftCurrentInfo.serverHost);
-				}
-				return;
-			}
-			
-			
+			if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("mineplex"))
+				new Mineplex().handle(message);
+			else if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("hypixel"))
+				new Hypixel().handle(message);
+			else if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("playmindcrack"))
+				new Mindcrack().handle(message);
+			else if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("hivemc"))
+				new HiveMC().handle(message);
+			else if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("mc-legends"))
+				new McLegends().handle(message);
 		}
 	}
 }
