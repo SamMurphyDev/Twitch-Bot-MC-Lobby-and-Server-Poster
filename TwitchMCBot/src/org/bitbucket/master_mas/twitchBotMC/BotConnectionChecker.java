@@ -20,6 +20,9 @@
 package org.bitbucket.master_mas.twitchBotMC;
 
 import java.awt.EventQueue;
+import java.util.TimerTask;
+
+import org.bitbucket.master_mas.twitchBotMC.commands.CommandMCBotNot;
 
 public class BotConnectionChecker implements Runnable {
 
@@ -31,6 +34,13 @@ public class BotConnectionChecker implements Runnable {
 	
 	@Override
 	public void run() {
+		launcher.getTimer().schedule(new TimerTask() {
+			@Override
+			public void run() {
+				CommandMCBotNot.timeup = true;
+			}
+		}, 10000);
+		
 		while(true) {
 			if(launcher.getBot() == null)
 				EventQueue.invokeLater(new Runnable() {

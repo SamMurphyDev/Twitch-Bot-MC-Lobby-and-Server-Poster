@@ -27,8 +27,13 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 public class CommandMCBotNot extends Command {
 
+	public static boolean timeup = false;
+	
 	public CommandMCBotNot(String command, String[] args, final Launcher launcher, MessageEvent<PircBotX> event) {
 		super(command, args, launcher, event);
+		if(timeup)
+			return;
+		
 		if(!event.getUser().getLogin().equalsIgnoreCase(launcher.getBot().getConfiguration().getName())) {
 			launcher.getBot().sendIRC().quitServer();
 			EventQueue.invokeLater(new Runnable() {
