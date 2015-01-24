@@ -21,6 +21,8 @@ Currently only works with a Windows. If demand is high enough I will push to oth
 
 [License Agreement](https://bitbucket.org/master_mas/twitch-bot-mc-lobby-and-server-poster/src/4365330098ff0a859ee0544f315340ba381f2b96/license.txt)
 
+This program (Twitch MCBot) is not endorsed by Mojang, the creator of the game Minecraft. This program (Twitch MCBot) is not endorsed by Twitch Interactive. I, the developer of the program (Twitch MCBot) own the program rights and the program is no way supported or associated with either of the 2 companies listed above (Mojang, Twitch Interactive). The program follows the Minecraft End User License Agreement and Guidelines set out by the Twitch Dev API.
+
 ### How do I get set up? ###
 
 To run the program you double click it. Doesn't need to be installed or anything.
