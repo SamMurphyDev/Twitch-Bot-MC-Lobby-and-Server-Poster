@@ -23,20 +23,26 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.bitbucket.master_mas.twitchBotMC.MinecraftChatHandler;
 import org.bitbucket.master_mas.twitchBotMC.MinecraftCurrentInfo;
+import org.bitbucket.master_mas.twitchBotMC.external.TwitchBotListener;
 
 public abstract class MinecraftServerHandler {
 
 	protected final ConcurrentLinkedQueue<String> messageQueue;
+	
+	public static boolean listenerAttached = false;
 	
 	public MinecraftServerHandler() {
 		messageQueue = MinecraftChatHandler.getInstance().messageQueue;
 	}
 	
 	public void messageQueue(String location, boolean lobby) {
-		if(lobby)
-			messageQueue.add("I've just spawned in the lobby " + location + " on " + MinecraftCurrentInfo.serverHost);
-		else
-			messageQueue.add("I've justed entered the mini-game " + location + " on " + MinecraftCurrentInfo.serverHost);
+		TwitchBotListener.connectToRoom(location);
+		
+		if(!listenerAttached)
+			if(lobby)
+				messageQueue.add("I've just spawned in the lobby " + location + " on " + MinecraftCurrentInfo.serverHost);
+			else
+				messageQueue.add("I've justed entered the mini-game " + location + " on " + MinecraftCurrentInfo.serverHost);
 	}
 	
 	public abstract void handle(String message);

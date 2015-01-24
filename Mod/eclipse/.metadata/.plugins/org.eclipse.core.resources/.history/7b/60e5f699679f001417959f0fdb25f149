@@ -1,0 +1,12 @@
+package org.bitbucket.master_mas.mcBotMod;
+
+import net.minecraftforge.fml.common.Mod;
+
+@Mod(modid="MCBotMod", name="MCBotMod", version="1.0.0")
+public class MCBotMod {
+
+	public static MCBotMod instance;
+	
+	
+	
+}

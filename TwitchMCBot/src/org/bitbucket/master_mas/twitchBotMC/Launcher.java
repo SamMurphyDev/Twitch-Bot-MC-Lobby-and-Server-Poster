@@ -68,39 +68,41 @@ public class Launcher extends JFrame {
 	private Launcher instance;
 	
 	public static void main(String[] args) {
-		new Launcher();
+		new Launcher(true);
 	}
 	
-	public Launcher() {
+	public Launcher(boolean gui) {
 		this.instance = this;
 		timer = new Timer();
 		
-		this.setSize(programRes);
-		this.setLocationRelativeTo(null);
-		this.setTitle("Twitch MC Bot - 1.0.3");
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.setResizable(false);
-		this.setIconImage(null);
-		
-		this.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				super.windowClosing(e);
-				String buttons[] = {"Yes", "No"};
-				int result = JOptionPane.showOptionDialog(
-						null, "Are you sure you want to exit?", 
-						instance.getTitle(), 
-						JOptionPane.DEFAULT_OPTION, 
-						JOptionPane.WARNING_MESSAGE, 
-						null, buttons, buttons[1]);
-				if(result == 0)
-					System.exit(0);
-			}
-		});
-		
-		this.add(buildInterface(read()));
-		
-		this.setVisible(true);
+		if(gui) {
+			this.setSize(programRes);
+			this.setLocationRelativeTo(null);
+			this.setTitle("Twitch MC Bot - 1.0.3");
+			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			this.setResizable(false);
+			this.setIconImage(null);
+			
+			this.addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowClosing(WindowEvent e) {
+					super.windowClosing(e);
+					String buttons[] = {"Yes", "No"};
+					int result = JOptionPane.showOptionDialog(
+							null, "Are you sure you want to exit?", 
+							instance.getTitle(), 
+							JOptionPane.DEFAULT_OPTION, 
+							JOptionPane.WARNING_MESSAGE, 
+							null, buttons, buttons[1]);
+					if(result == 0)
+						System.exit(0);
+				}
+			});
+			
+			this.add(buildInterface(read()));
+			
+			this.setVisible(true);
+		}
 	}
 
 	private JPanel buildInterface(Map<String, String> settings) {
@@ -147,13 +149,7 @@ public class Launcher extends JFrame {
 		confirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MinecraftCurrentInfo.castersChannel = username.getText();
-				botThread = new Thread(new BotHandler(username.getText(), new String(oauthKey.getPassword()), channel.getText(), saveSettings.isSelected(), instance), "IRC Connection");
-				botThread.start();
-				checkerThread = new Thread(new BotConnectionChecker(instance), "Checker");
-				checkerThread.start();
-				new MinecraftPoller(instance);
-				new Thread(new BotMessagePoster(instance)).start();
+				connectBot(username.getText(), new String(oauthKey.getPassword()), channel.getText(), saveSettings.isSelected());
 				
 				container.remove((JButton)e.getSource());
 				container.remove(saveSettings);
@@ -199,8 +195,23 @@ public class Launcher extends JFrame {
 		return container;
 	}
 	
+	public void connectBot(String username, String oauthKey, String channel, boolean saveSettings) {
+		MinecraftCurrentInfo.castersChannel = username;
+		botThread = new Thread(new BotHandler(username, oauthKey, channel, saveSettings, instance), "IRC Connection");
+		botThread.start();
+		checkerThread = new Thread(new BotConnectionChecker(instance), "Checker");
+		checkerThread.start();
+		new MinecraftPoller(instance);
+		new Thread(new BotMessagePoster(instance)).start();
+	}
+	
+	public void stopBot() {
+		System.exit(0);
+	}
+	
 	private Map<String, String> read() {
-		String location = System.getenv("APPDATA") + "\\twitch\\bots\\mc\\config.properties";
+		String location = defaultDirectory() + "\\twitch\\bots\\mc\\config.properties";
+		System.out.println("Location: " + location);
 		File file = new File(location);
 		if(!file.exists())
 			return null;
@@ -223,6 +234,9 @@ public class Launcher extends JFrame {
 	
 	private TimerTask currentStatusTimer = null;
 	public void changeStatusLabel(String status, String color) {
+		if(otherStatus == null)
+			return;
+		
 		otherStatus.setText("<html><font color='" + color + "'>" + status + "</font></html>");
 		
 		if(currentStatusTimer != null)
@@ -238,7 +252,8 @@ public class Launcher extends JFrame {
 	}
 	
 	public void changeConnectionStatusLabel(String status, String color) {
-		connectionStatus.setText("<html><font color='" + color + "'>" + status + "</font></html>");
+		if(connectionStatus != null)
+			connectionStatus.setText("<html><font color='" + color + "'>" + status + "</font></html>");
 	}
 
 	public void setBot(PircBotX pircBotX) {
@@ -255,5 +270,21 @@ public class Launcher extends JFrame {
 	
 	public Timer getTimer() {
 		return timer;
+	}
+	
+	public static String defaultDirectory() {
+	    String OS = System.getProperty("os.name").toUpperCase();
+	    if (OS.contains("WIN"))
+	        return System.getenv("APPDATA");
+	    else if (OS.contains("MAC"))
+	        return System.getProperty("user.home") + "/Library/Application "
+	                + "Support";
+	    else if (OS.contains("NUX"))
+	        return System.getProperty("user.home");
+	    return System.getProperty("user.dir");
+	}
+	
+	public Launcher getInstance() {
+		return instance;
 	}
 }

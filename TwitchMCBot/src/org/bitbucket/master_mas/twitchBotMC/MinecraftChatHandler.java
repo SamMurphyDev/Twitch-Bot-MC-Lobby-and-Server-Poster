@@ -21,10 +21,12 @@ package org.bitbucket.master_mas.twitchBotMC;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.bitbucket.master_mas.twitchBotMC.external.TwitchBotListener;
 import org.bitbucket.master_mas.twitchBotMC.servers.HiveMC;
 import org.bitbucket.master_mas.twitchBotMC.servers.Hypixel;
 import org.bitbucket.master_mas.twitchBotMC.servers.McLegends;
 import org.bitbucket.master_mas.twitchBotMC.servers.Mindcrack;
+import org.bitbucket.master_mas.twitchBotMC.servers.MinecraftServerHandler;
 import org.bitbucket.master_mas.twitchBotMC.servers.Mineplex;
 
 public class MinecraftChatHandler {
@@ -51,7 +53,9 @@ public class MinecraftChatHandler {
 			String ip = bits[0];
 			ip.trim();
 			MinecraftCurrentInfo.serverHost = ip;
-			messageQueue.add("I'm Playing on " + ip + "  Come and Join me!!!");
+			TwitchBotListener.connectToServer(ip);
+			if(!MinecraftServerHandler.listenerAttached)
+				messageQueue.add("I'm Playing on " + ip + "  Come and Join me!!!");
 			return;
 		}
 		

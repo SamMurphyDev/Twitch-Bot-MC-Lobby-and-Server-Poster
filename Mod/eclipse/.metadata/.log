@@ -1,0 +1,457 @@
+!SESSION 2015-01-19 10:00:49.300 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product -data D:\Users\Sam\git\twitch-bot-mc-lobby-and-server-poster\Mod\eclipse -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.jface 2 0 2015-01-19 10:00:53.507
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2015-01-19 10:00:53.507
+!MESSAGE A conflict occurred for ALT+CTRL+R:
+Binding(ALT+CTRL+R,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.CompareWithRevisionCommand,URL...,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3e82ee89,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+R,
+	ParameterizedCommand(Command(org.python.pydev.debug.setnext,Set Next Statement,
+		,
+		Category(org.python.pydev.ui.category.run,PyDev - Run,Python run category,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5fa846f,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.mylyn.tasks.core 1 0 2015-01-19 10:00:58.799
+!MESSAGE Migrating task repository credentials from old secure store node.
+
+!ENTRY org.eclipse.mylyn.tasks.core 1 0 2015-01-19 10:00:58.804
+!MESSAGE Migrating task repository credentials from keyring.
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-01-19 10:00:59.194
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Sam'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 2 0 2015-01-19 10:01:00.673
+!MESSAGE failed SocketConnector@127.0.0.1:51235: java.net.BindException: Address already in use: JVM_Bind
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 2 0 2015-01-19 10:01:00.675
+!MESSAGE failed Server@f4edd5: java.net.BindException: Address already in use: JVM_Bind
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 1 0 2015-01-19 10:01:00.675
+!MESSAGE Unable to run embedded web server, Direct Click Through will not be available
+!STACK 0
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at org.mortbay.jetty.bio.SocketConnector.newServerSocket(SocketConnector.java:80)
+	at org.mortbay.jetty.bio.SocketConnector.open(SocketConnector.java:73)
+	at org.mortbay.jetty.AbstractConnector.doStart(AbstractConnector.java:283)
+	at org.mortbay.jetty.bio.SocketConnector.doStart(SocketConnector.java:147)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.Server.doStart(Server.java:235)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at com.atlassian.connector.eclipse.internal.directclickthrough.ui.DirectClickThroughUiPlugin$2.runImpl(DirectClickThroughUiPlugin.java:90)
+	at com.atlassian.connector.eclipse.internal.core.jobs.JobWithStatus.run(JobWithStatus.java:50)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2015-01-19 10:04:47.739
+!MESSAGE Internal Error
+!STACK 0
+java.lang.Exception: Illegal ASTNode positions: previousEnd=697, childStart=696, element==Minecraft/D:\/Users\/Sam\/.gradle\/caches\/minecraft\/net\/minecraftforge\/fml\/1.8-8.0.18.1022-1.8\/snapshot_nodoc\/20141130\/fmlSrc-1.8-8.0.18.1022-1.8.jar<net.minecraftforge.fml.common(Mod.class[Mod, Javadoc:
+/**
+ * This defines a Mod to FML.
+ * Any class found with this annotation applied will be loaded as a Mod. The instance that is loaded will
+ * represent the mod to other Mods in the system. It will be sent various subclasses of {@link FMLEvent}
+ * at pre-defined times during the loading of the game, based on where you have applied the {@link EventHandler}
+ * annotation.
+ *
+ * <p>This is a simple example of a Mod. It has the modId of "MyModId", the name of "My example mod", it is
+ * version 1.0, and depends on FML being loaded.
+ * <pre>{@code
+ * package mymod;
+ * // Declare that this is a mod with modId "MyModId", name "My example mod", version "1.0" and dependency on FML.
+ * {@literal @}Mod(modId="MyModId",name="My example mod",version="1.0",dependencies="required-after:FML")
+ * public class MyMod {
+ *      // Populate this field with the instance of the mod created by FML
+ *      {@literal @}Instance("MyModId")
+ *      public MyMod instance;
+ *
+ *      // Mark this method for receiving an {@link FMLEvent} (in this case, it's the {@link FMLPreInitializationEvent})
+ *      {@literal @}EventHandler public void preInit(FMLPreInitializationEvent event)
+ *      {
+ *          // Do stuff in pre-init phase (read config, create blocks and items, register them)
+ *      }
+ * }
+ * }
+ * </pre>
+ *
+ * @author cpw
+ *
+ */
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.handleContentElements(JavadocContentAccess2.java:1100)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.handleContentElements(JavadocContentAccess2.java:1088)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.toHTML(JavadocContentAccess2.java:829)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.javadoc2HTML(JavadocContentAccess2.java:684)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContentFromSource(JavadocContentAccess2.java:612)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContent(JavadocContentAccess2.java:495)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.extractJavadoc(ProposalInfo.java:93)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.computeInfo(ProposalInfo.java:77)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.getInfo(ProposalInfo.java:62)
+	at org.eclipse.jdt.internal.ui.text.java.AbstractJavaCompletionProposal.getAdditionalProposalInfo(AbstractJavaCompletionProposal.java:573)
+	at org.eclipse.jface.text.contentassist.AdditionalInfoController$3.run(AdditionalInfoController.java:106)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2015-01-19 10:13:06.696
+!MESSAGE Internal Error
+!STACK 0
+java.lang.Exception: Illegal ASTNode positions: previousEnd=697, childStart=696, element==Minecraft/D:\/Users\/Sam\/.gradle\/caches\/minecraft\/net\/minecraftforge\/fml\/1.8-8.0.18.1022-1.8\/snapshot_nodoc\/20141130\/fmlSrc-1.8-8.0.18.1022-1.8.jar<net.minecraftforge.fml.common(Mod.class[Mod, Javadoc:
+/**
+ * This defines a Mod to FML.
+ * Any class found with this annotation applied will be loaded as a Mod. The instance that is loaded will
+ * represent the mod to other Mods in the system. It will be sent various subclasses of {@link FMLEvent}
+ * at pre-defined times during the loading of the game, based on where you have applied the {@link EventHandler}
+ * annotation.
+ *
+ * <p>This is a simple example of a Mod. It has the modId of "MyModId", the name of "My example mod", it is
+ * version 1.0, and depends on FML being loaded.
+ * <pre>{@code
+ * package mymod;
+ * // Declare that this is a mod with modId "MyModId", name "My example mod", version "1.0" and dependency on FML.
+ * {@literal @}Mod(modId="MyModId",name="My example mod",version="1.0",dependencies="required-after:FML")
+ * public class MyMod {
+ *      // Populate this field with the instance of the mod created by FML
+ *      {@literal @}Instance("MyModId")
+ *      public MyMod instance;
+ *
+ *      // Mark this method for receiving an {@link FMLEvent} (in this case, it's the {@link FMLPreInitializationEvent})
+ *      {@literal @}EventHandler public void preInit(FMLPreInitializationEvent event)
+ *      {
+ *          // Do stuff in pre-init phase (read config, create blocks and items, register them)
+ *      }
+ * }
+ * }
+ * </pre>
+ *
+ * @author cpw
+ *
+ */
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.handleContentElements(JavadocContentAccess2.java:1100)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.handleContentElements(JavadocContentAccess2.java:1088)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.toHTML(JavadocContentAccess2.java:829)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.javadoc2HTML(JavadocContentAccess2.java:684)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContentFromSource(JavadocContentAccess2.java:612)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContent(JavadocContentAccess2.java:495)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.extractJavadoc(ProposalInfo.java:93)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.computeInfo(ProposalInfo.java:77)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.getInfo(ProposalInfo.java:62)
+	at org.eclipse.jdt.internal.ui.text.java.AbstractJavaCompletionProposal.getAdditionalProposalInfo(AbstractJavaCompletionProposal.java:573)
+	at org.eclipse.jface.text.contentassist.AdditionalInfoController$3.run(AdditionalInfoController.java:106)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SESSION 2015-01-19 19:25:10.661 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.jface 2 0 2015-01-19 19:25:15.094
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2015-01-19 19:25:15.094
+!MESSAGE A conflict occurred for ALT+CTRL+R:
+Binding(ALT+CTRL+R,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.CompareWithRevisionCommand,URL...,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4131b6ab,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+R,
+	ParameterizedCommand(Command(org.python.pydev.debug.setnext,Set Next Statement,
+		,
+		Category(org.python.pydev.ui.category.run,PyDev - Run,Python run category,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@26cfb5fd,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-01-19 19:25:19.856
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Sam'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 2 0 2015-01-19 19:25:20.648
+!MESSAGE failed SocketConnector@127.0.0.1:51235: java.net.BindException: Address already in use: JVM_Bind
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 2 0 2015-01-19 19:25:20.649
+!MESSAGE failed Server@710f64e1: java.net.BindException: Address already in use: JVM_Bind
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 1 0 2015-01-19 19:25:20.650
+!MESSAGE Unable to run embedded web server, Direct Click Through will not be available
+!STACK 0
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at org.mortbay.jetty.bio.SocketConnector.newServerSocket(SocketConnector.java:80)
+	at org.mortbay.jetty.bio.SocketConnector.open(SocketConnector.java:73)
+	at org.mortbay.jetty.AbstractConnector.doStart(AbstractConnector.java:283)
+	at org.mortbay.jetty.bio.SocketConnector.doStart(SocketConnector.java:147)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.Server.doStart(Server.java:235)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at com.atlassian.connector.eclipse.internal.directclickthrough.ui.DirectClickThroughUiPlugin$2.runImpl(DirectClickThroughUiPlugin.java:90)
+	at com.atlassian.connector.eclipse.internal.core.jobs.JobWithStatus.run(JobWithStatus.java:50)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SESSION 2015-01-19 19:36:54.242 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.jface 2 0 2015-01-19 19:36:58.711
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2015-01-19 19:36:58.711
+!MESSAGE A conflict occurred for ALT+CTRL+R:
+Binding(ALT+CTRL+R,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.CompareWithRevisionCommand,URL...,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6fca908d,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+R,
+	ParameterizedCommand(Command(org.python.pydev.debug.setnext,Set Next Statement,
+		,
+		Category(org.python.pydev.ui.category.run,PyDev - Run,Python run category,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5bd85251,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-01-19 19:37:03.801
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Sam'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 2 0 2015-01-19 19:37:04.476
+!MESSAGE failed SocketConnector@127.0.0.1:51235: java.net.BindException: Address already in use: JVM_Bind
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 2 0 2015-01-19 19:37:04.477
+!MESSAGE failed Server@7b507b00: java.net.BindException: Address already in use: JVM_Bind
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 1 0 2015-01-19 19:37:04.478
+!MESSAGE Unable to run embedded web server, Direct Click Through will not be available
+!STACK 0
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at org.mortbay.jetty.bio.SocketConnector.newServerSocket(SocketConnector.java:80)
+	at org.mortbay.jetty.bio.SocketConnector.open(SocketConnector.java:73)
+	at org.mortbay.jetty.AbstractConnector.doStart(AbstractConnector.java:283)
+	at org.mortbay.jetty.bio.SocketConnector.doStart(SocketConnector.java:147)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.Server.doStart(Server.java:235)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at com.atlassian.connector.eclipse.internal.directclickthrough.ui.DirectClickThroughUiPlugin$2.runImpl(DirectClickThroughUiPlugin.java:90)
+	at com.atlassian.connector.eclipse.internal.core.jobs.JobWithStatus.run(JobWithStatus.java:50)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2015-01-19 19:39:07.035
+!MESSAGE Internal Error
+!STACK 0
+java.lang.Exception: Illegal ASTNode positions: previousEnd=697, childStart=696, element==Minecraft/D:\/Users\/Sam\/.gradle\/caches\/minecraft\/net\/minecraftforge\/fml\/1.8-8.0.18.1022-1.8\/snapshot_nodoc\/20141130\/fmlSrc-1.8-8.0.18.1022-1.8.jar<net.minecraftforge.fml.common(Mod.class[Mod, Javadoc:
+/**
+ * This defines a Mod to FML.
+ * Any class found with this annotation applied will be loaded as a Mod. The instance that is loaded will
+ * represent the mod to other Mods in the system. It will be sent various subclasses of {@link FMLEvent}
+ * at pre-defined times during the loading of the game, based on where you have applied the {@link EventHandler}
+ * annotation.
+ *
+ * <p>This is a simple example of a Mod. It has the modId of "MyModId", the name of "My example mod", it is
+ * version 1.0, and depends on FML being loaded.
+ * <pre>{@code
+ * package mymod;
+ * // Declare that this is a mod with modId "MyModId", name "My example mod", version "1.0" and dependency on FML.
+ * {@literal @}Mod(modId="MyModId",name="My example mod",version="1.0",dependencies="required-after:FML")
+ * public class MyMod {
+ *      // Populate this field with the instance of the mod created by FML
+ *      {@literal @}Instance("MyModId")
+ *      public MyMod instance;
+ *
+ *      // Mark this method for receiving an {@link FMLEvent} (in this case, it's the {@link FMLPreInitializationEvent})
+ *      {@literal @}EventHandler public void preInit(FMLPreInitializationEvent event)
+ *      {
+ *          // Do stuff in pre-init phase (read config, create blocks and items, register them)
+ *      }
+ * }
+ * }
+ * </pre>
+ *
+ * @author cpw
+ *
+ */
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.handleContentElements(JavadocContentAccess2.java:1100)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.handleContentElements(JavadocContentAccess2.java:1088)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.toHTML(JavadocContentAccess2.java:829)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.javadoc2HTML(JavadocContentAccess2.java:684)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContentFromSource(JavadocContentAccess2.java:612)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContent(JavadocContentAccess2.java:495)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.extractJavadoc(ProposalInfo.java:93)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.computeInfo(ProposalInfo.java:77)
+	at org.eclipse.jdt.internal.ui.text.java.ProposalInfo.getInfo(ProposalInfo.java:62)
+	at org.eclipse.jdt.internal.ui.text.java.AbstractJavaCompletionProposal.getAdditionalProposalInfo(AbstractJavaCompletionProposal.java:573)
+	at org.eclipse.jface.text.contentassist.AdditionalInfoController$3.run(AdditionalInfoController.java:106)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SESSION 2015-01-19 20:15:44.083 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.jface 2 0 2015-01-19 20:15:48.892
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2015-01-19 20:15:48.892
+!MESSAGE A conflict occurred for ALT+CTRL+R:
+Binding(ALT+CTRL+R,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.CompareWithRevisionCommand,URL...,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@161020ce,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+R,
+	ParameterizedCommand(Command(org.python.pydev.debug.setnext,Set Next Statement,
+		,
+		Category(org.python.pydev.ui.category.run,PyDev - Run,Python run category,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@7cd9bfb2,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-01-19 20:15:54.015
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Sam'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 2 0 2015-01-19 20:15:54.766
+!MESSAGE failed SocketConnector@127.0.0.1:51235: java.net.BindException: Address already in use: JVM_Bind
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 2 0 2015-01-19 20:15:54.767
+!MESSAGE failed Server@14e46583: java.net.BindException: Address already in use: JVM_Bind
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 1 0 2015-01-19 20:15:54.769
+!MESSAGE Unable to run embedded web server, Direct Click Through will not be available
+!STACK 0
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at org.mortbay.jetty.bio.SocketConnector.newServerSocket(SocketConnector.java:80)
+	at org.mortbay.jetty.bio.SocketConnector.open(SocketConnector.java:73)
+	at org.mortbay.jetty.AbstractConnector.doStart(AbstractConnector.java:283)
+	at org.mortbay.jetty.bio.SocketConnector.doStart(SocketConnector.java:147)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.Server.doStart(Server.java:235)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at com.atlassian.connector.eclipse.internal.directclickthrough.ui.DirectClickThroughUiPlugin$2.runImpl(DirectClickThroughUiPlugin.java:90)
+	at com.atlassian.connector.eclipse.internal.core.jobs.JobWithStatus.run(JobWithStatus.java:50)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SESSION 2015-01-19 20:44:02.452 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.standard.product
+
+!ENTRY org.eclipse.jface 2 0 2015-01-19 20:44:06.774
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2015-01-19 20:44:06.774
+!MESSAGE A conflict occurred for ALT+CTRL+R:
+Binding(ALT+CTRL+R,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.CompareWithRevisionCommand,URL...,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@d8aa36a,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+R,
+	ParameterizedCommand(Command(org.python.pydev.debug.setnext,Set Next Statement,
+		,
+		Category(org.python.pydev.ui.category.run,PyDev - Run,Python run category,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@8ee8b18,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-01-19 20:44:11.611
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Sam'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 2 0 2015-01-19 20:44:12.102
+!MESSAGE failed SocketConnector@127.0.0.1:51235: java.net.BindException: Address already in use: JVM_Bind
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 2 0 2015-01-19 20:44:12.103
+!MESSAGE failed Server@62490222: java.net.BindException: Address already in use: JVM_Bind
+
+!ENTRY com.atlassian.connector.eclipse.directclickthrough.ui 1 0 2015-01-19 20:44:12.104
+!MESSAGE Unable to run embedded web server, Direct Click Through will not be available
+!STACK 0
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at org.mortbay.jetty.bio.SocketConnector.newServerSocket(SocketConnector.java:80)
+	at org.mortbay.jetty.bio.SocketConnector.open(SocketConnector.java:73)
+	at org.mortbay.jetty.AbstractConnector.doStart(AbstractConnector.java:283)
+	at org.mortbay.jetty.bio.SocketConnector.doStart(SocketConnector.java:147)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.Server.doStart(Server.java:235)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at com.atlassian.connector.eclipse.internal.directclickthrough.ui.DirectClickThroughUiPlugin$2.runImpl(DirectClickThroughUiPlugin.java:90)
+	at com.atlassian.connector.eclipse.internal.core.jobs.JobWithStatus.run(JobWithStatus.java:50)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)

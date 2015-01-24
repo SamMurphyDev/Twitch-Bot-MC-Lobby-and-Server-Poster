@@ -46,10 +46,10 @@ public class BotHandler implements Runnable {
 	}
 	
 	private void write(String username, String password, String channel) {
-		if(!new File(System.getenv("APPDATA") + "\\twitch\\bots\\mc").exists())
-			new File(System.getenv("APPDATA") + "\\twitch\\bots\\mc").mkdirs();
+		if(!new File(Launcher.defaultDirectory() + "\\twitch\\bots\\mc").exists())
+			new File(Launcher.defaultDirectory() + "\\twitch\\bots\\mc").mkdirs();
 		
-		String location = System.getenv("APPDATA") + "\\twitch\\bots\\mc\\config.properties";
+		String location = Launcher.defaultDirectory() + "\\twitch\\bots\\mc\\config.properties";
 		Properties properties = new Properties();
 		properties.put("username", username);
 		properties.put("oauth", password);
