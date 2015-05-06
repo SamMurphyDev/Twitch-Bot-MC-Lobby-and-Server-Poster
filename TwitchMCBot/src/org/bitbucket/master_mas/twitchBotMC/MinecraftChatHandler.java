@@ -28,6 +28,7 @@ import org.bitbucket.master_mas.twitchBotMC.servers.McLegends;
 import org.bitbucket.master_mas.twitchBotMC.servers.Mindcrack;
 import org.bitbucket.master_mas.twitchBotMC.servers.MinecraftServerHandler;
 import org.bitbucket.master_mas.twitchBotMC.servers.Mineplex;
+import org.bitbucket.master_mas.twitchBotMC.servers.Nexus;
 
 public class MinecraftChatHandler {
 
@@ -70,6 +71,8 @@ public class MinecraftChatHandler {
 				new HiveMC().handle(message);
 			else if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("mc-legends"))
 				new McLegends().handle(message);
+			else if(MinecraftCurrentInfo.serverHost.toLowerCase().contains("nexus"))
+				new Nexus().handle(message);
 		}
 	}
 }

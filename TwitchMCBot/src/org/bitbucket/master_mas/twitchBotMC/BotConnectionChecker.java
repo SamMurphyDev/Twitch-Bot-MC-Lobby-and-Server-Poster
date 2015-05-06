@@ -27,6 +27,7 @@ import org.bitbucket.master_mas.twitchBotMC.commands.CommandMCBotNot;
 public class BotConnectionChecker implements Runnable {
 
 	private final Launcher launcher;
+	private String lastMessage = "";
 	
 	public BotConnectionChecker(Launcher launcher) {
 		this.launcher = launcher;
@@ -46,21 +47,33 @@ public class BotConnectionChecker implements Runnable {
 				EventQueue.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						launcher.changeConnectionStatusLabel("Bot awaiting to initialise", "blue");
+						String message = "Bot awaiting to initialise";
+						if(!lastMessage.equals(message)) {
+							launcher.changeConnectionStatusLabel(message, "blue");
+							lastMessage = message;
+						}
 					}
 				});
 			else if(launcher.getBot().isConnected())
 				EventQueue.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						launcher.changeConnectionStatusLabel("Bot Connected and Running", "green");
+						String message = "Bot Connected and Running";
+						if(!lastMessage.equals(message)) {
+							launcher.changeConnectionStatusLabel(message, "green");
+							lastMessage = message;
+						}
 					}
 				});
 			else if(!launcher.getBot().isConnected())
 				EventQueue.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						launcher.changeConnectionStatusLabel("Bot not Connected", "red");
+						String message = "Bot can't reach server";
+						if(!lastMessage.equals(message)) {
+							launcher.changeConnectionStatusLabel(message, "red");
+							lastMessage = message;
+						}
 					}
 				});
 			

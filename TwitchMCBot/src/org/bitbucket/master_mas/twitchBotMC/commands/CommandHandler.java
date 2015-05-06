@@ -29,18 +29,22 @@ import org.bitbucket.master_mas.twitchBotMC.Launcher;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.events.MessageEvent;
 
+import com.sun.istack.internal.logging.Logger;
+
 public class CommandHandler {
 
 	private Launcher launcher;
 
 	public enum CommandsList {
+		IP,
 		SERVER,
 		LOBBY,
 		MINIGAME,
 		MCBOTNOT,
 		MCBOTGETUSER,
 		MCBOTDISCONNECT,
-		MCBOTMUTE;
+		MCBOTMUTE,
+		MCBOTAVAILABLE;
 	}
 	
 	private final List<CommandsList> commandsThatHaveBeenRun = new ArrayList<CommandsList>();
@@ -54,6 +58,8 @@ public class CommandHandler {
 	}
 	
 	public void handle(String command, String[] args, MessageEvent<PircBotX> event) {
+		Logger.getLogger(CommandHandler.class).info("Handling Command: " + command);
+		
 		final CommandsList commandV;
 		try {
 			commandV = CommandsList.valueOf(command.replace("!", "").split(" ")[0].toUpperCase());
@@ -69,7 +75,7 @@ public class CommandHandler {
 				spamCounter.put(commandV, spamCounter.get(commandV) + 1);
 				
 				if(spamCounter.get(commandV) > 2)
-					launcher.changeStatusLabel("People are spamming command: " + commandV, "red");
+					launcher.changeStatusLabel("The chat is spamming the command: " + commandV, "red");
 			}
 			
 			return;
@@ -104,9 +110,12 @@ public class CommandHandler {
 			case MINIGAME:
 				new CommandLocation(command, args, launcher, event);
 				break;
+			case IP:
 			case SERVER:
 				new CommandServer(command, args, launcher, event);
 				break;
+			case MCBOTAVAILABLE:
+				new CommandMCBotAvailable(command, args, launcher, event);
 			default:
 				System.err.println(commandV + " doesn't have a registered command class");
 				break;

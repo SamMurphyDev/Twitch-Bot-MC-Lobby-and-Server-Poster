@@ -19,13 +19,23 @@
 
 package org.bitbucket.master_mas.twitchBotMC;
 
+import java.awt.AWTException;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -34,6 +44,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -53,19 +64,27 @@ import javax.swing.border.EmptyBorder;
 
 import org.pircbotx.PircBotX;
 
+import com.sun.net.ssl.HttpsURLConnection;
+
+@SuppressWarnings("deprecation")
 public class Launcher extends JFrame {
 
 	private static final long serialVersionUID = -6830326952068691403L;
 	private static Dimension programRes = new Dimension(400, 330);
+	private final static String programTitle = "MC Bot";
 	private JLabel connectionStatus;
 	private JLabel otherStatus;
 	private PircBotX bot;
 	private Timer timer;
+	private TrayIcon trayIcon = null;
 	
 	private Thread botThread;
 	private Thread checkerThread;
 	
 	private Launcher instance;
+	private String oauthKey;
+	private String channel;
+	private boolean saveSettings;
 	
 	public static void main(String[] args) {
 		new Launcher(true);
@@ -78,7 +97,7 @@ public class Launcher extends JFrame {
 		if(gui) {
 			this.setSize(programRes);
 			this.setLocationRelativeTo(null);
-			this.setTitle("Twitch MC Bot - 1.0.3");
+			this.setTitle(programTitle + " - 1.0.3");
 			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			this.setResizable(false);
 			this.setIconImage(null);
@@ -97,11 +116,67 @@ public class Launcher extends JFrame {
 					if(result == 0)
 						System.exit(0);
 				}
+				
+				@Override
+				public void windowIconified(WindowEvent e) {
+					super.windowIconified(e);
+					setVisible(false);
+				}
 			});
 			
 			this.add(buildInterface(read()));
 			
 			this.setVisible(true);
+			
+			if(SystemTray.isSupported()) {
+				SystemTray tray = SystemTray.getSystemTray();
+				
+				Image image = Toolkit.getDefaultToolkit().getImage("assets/twitchMCBot.png");
+				
+				ActionListener listener = new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+					}
+				};
+				
+				PopupMenu popup = new PopupMenu();
+				
+				MenuItem defaultItem = new MenuItem("IDK");
+				defaultItem.addActionListener(listener);
+				
+				popup.add(defaultItem);
+				
+				trayIcon = new TrayIcon(image, programTitle);
+				trayIcon.setImageAutoSize(true);
+				trayIcon.addMouseListener(new MouseListener() {
+					@Override
+					public void mouseReleased(MouseEvent arg0) { }
+					
+					@Override
+					public void mousePressed(MouseEvent e) {
+						if(e.getClickCount() >= 2) {
+							setVisible(true);
+							setState(JFrame.NORMAL);
+						}
+					}
+					
+					@Override
+					public void mouseExited(MouseEvent arg0) { }
+					
+					@Override
+					public void mouseEntered(MouseEvent arg0) { }
+					
+					@Override
+					public void mouseClicked(MouseEvent arg0) { }
+				});
+				
+				try {
+					tray.add(trayIcon);
+				} catch (AWTException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -178,8 +253,7 @@ public class Launcher extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				if(Desktop.isDesktopSupported())
-				{
+				if(Desktop.isDesktopSupported()) {
 					try {
 						Desktop.getDesktop().browse(new URI("http://www.sammurphysoftware.com"));
 					} catch (IOException e1) {
@@ -195,8 +269,51 @@ public class Launcher extends JFrame {
 		return container;
 	}
 	
+	public void tryReconnection() {
+		System.out.println("Happened");
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while(true) {
+					System.out.println("Happening");
+					EventQueue.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							changeStatusLabel("Attempting Reconnection to Twitch", "red");
+						}
+					});
+					
+					try {
+						URL url = new URL("http://twitch.tv");
+						HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+						con.connect();
+						if(con.getResponseCode() == 200)
+							break;
+					} catch (Exception e) { }
+					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				changeStatusLabel("Internet Connection Established", "green");
+				EventQueue.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						connectBot(MinecraftCurrentInfo.castersChannel, oauthKey, channel, saveSettings);
+					}
+				});
+			}
+		}).start();
+	}
+	
 	public void connectBot(String username, String oauthKey, String channel, boolean saveSettings) {
 		MinecraftCurrentInfo.castersChannel = username;
+		this.oauthKey = oauthKey;
+		this.channel = channel;
+		this.saveSettings = saveSettings;
 		botThread = new Thread(new BotHandler(username, oauthKey, channel, saveSettings, instance), "IRC Connection");
 		botThread.start();
 		checkerThread = new Thread(new BotConnectionChecker(instance), "Checker");
@@ -233,6 +350,7 @@ public class Launcher extends JFrame {
 	}
 	
 	private TimerTask currentStatusTimer = null;
+	private String lastOtherStatus = "";
 	public void changeStatusLabel(String status, String color) {
 		if(otherStatus == null)
 			return;
@@ -241,6 +359,14 @@ public class Launcher extends JFrame {
 		
 		if(currentStatusTimer != null)
 			currentStatusTimer.cancel();
+		
+		if(!this.isVisible())
+			if(trayIcon != null)
+				if(!status.equals("Nothing to Report"))
+					if(!status.equals(lastOtherStatus)) {
+						trayIcon.displayMessage("Warning", status, MessageType.WARNING);
+						lastOtherStatus = status;
+					}
 		
 		timer.schedule(currentStatusTimer = new TimerTask() {
 			@Override
@@ -252,6 +378,10 @@ public class Launcher extends JFrame {
 	}
 	
 	public void changeConnectionStatusLabel(String status, String color) {
+		if(color.equalsIgnoreCase("red"))
+			if(trayIcon != null)
+				trayIcon.displayMessage("Connection Problem", status, MessageType.ERROR);
+		
 		if(connectionStatus != null)
 			connectionStatus.setText("<html><font color='" + color + "'>" + status + "</font></html>");
 	}

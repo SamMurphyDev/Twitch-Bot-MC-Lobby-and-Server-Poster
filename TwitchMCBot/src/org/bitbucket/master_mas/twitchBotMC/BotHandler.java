@@ -26,7 +26,6 @@ import java.util.Properties;
 
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
-import org.pircbotx.exception.IrcException;
 
 public class BotHandler implements Runnable {
 	private PircBotX bot;
@@ -79,12 +78,10 @@ public class BotHandler implements Runnable {
 		launcher.setBot(bot = new PircBotX(ircConfig));
 		try {
 			bot.startBot();
-		} catch (IOException e) {
+		} catch(Exception e) {
 			e.printStackTrace();
-			launcher.changeStatusLabel("Internals Failed. Restart Program", "red");
-		} catch (IrcException e) {
-			e.printStackTrace();
-			launcher.changeStatusLabel("IRC Failed. Restart Program", "red");
+			//launcher.tryReconnection();
+			launcher.changeStatusLabel("Bot Library error thrown. Trying to restart", "red");
 		}
 	}
 }
